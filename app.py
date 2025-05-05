@@ -84,7 +84,7 @@ def add_locations():
         cur.execute("insert into locations(L_NAME) values(?)",(lname,))
         con.commit()
         flash("locations successfully added","success")
-        return redirect(url_for("index"))
+        return redirect(url_for("add_locations"))
     return render_template('add_locations.html')
 
 @app.route('/view_locations')
@@ -162,7 +162,7 @@ def move_products():
 
         cur.execute("insert into movements(P_ID,QTY,FROM_LOCATION,TO_LOCATION) VALUES(?,?,?,?)",(pid,qty,fromloc,toloc))
         con.commit()
-        flash("product Mooved successfully","success")
+        flash("product Moved successfully","success")
         return redirect(url_for("view_productmovements"))
 
     con=sql.connect("inventory.db")
