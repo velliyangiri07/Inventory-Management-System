@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <h1 style='background-color:hwb(15 80% 0%)'' class="text-center border border-secondary m-3 p-1 rounded"><i class="bi bi-shop"></i> Inventory Management system </h1>
+    <hr>
+
+    <div class="container mt-4">
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-auto">
+                <a href="{{ url_for('add_products')}}" class="btn btn-success">Add Products</a>
+            </div>
+            <div class="col-md-auto">
+                <a href="{{ url_for('add_locations')}}" class="btn btn-secondary">Add Locations</a>
+            </div>
+            <div class="col-md-auto">
+                <a href="{{url_for('move_products')}}" class="btn btn-primary">Move Products</a>
+            </div>
+            <div class="col-md-auto">
+                <a href="{{url_for('view_stocks')}}" class="btn btn-warning">View Stocks</a>
+            </div>
+        </div>
+    
+        <div class="row g-3 justify-content-center mt-2">
+            <div class="col-md-auto">
+                <a href="{{ url_for('view_products')}}" class="btn btn-info">View Products</a>
+            </div>
+            <div class="col-md-auto">
+                <a href="{{ url_for('view_locations')}}" class="btn btn-dark">View Locations</a>
+            </div>
+            <div class="col-md-auto">
+                <a href="{{url_for('view_productmovements')}}" class="btn btn-danger">View ProductMovements</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2 text-center">
+        <a href="{{ url_for('report')}}" class="btn btn-outline-info">Location Inventory Report</a>
+    </div>
+
+    <div class="mt-2 text-center">
+        <a href="{{ url_for('product_report')}}" class="btn btn-outline-info">Product Stocks Report</a>
+    </div>
+    
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{url_for('index')}}" class="btn btn-primary"><i class="bi bi-house"></i> Home</a>
+    <div class="flex-grow-1 text-center">
+        <h1 class="border border-secondary m-3 p-1 bg-secondary text-white rounded bolder"><i class="bi bi-truck"></i> Move Products</h1>
+    </div>
+</div><hr>
+
+<div class="row">
+    <div class="col-5 mx-auto">
+        <form method="post" action='{{url_for("move_products")}}'>
+            <div class="form-group">
+                <lable>Product Name</lable>
+                <select name=pname class="form-control" required>
+                    <option value="" disabled selected>Select Product</option>
+                    {% for row in products %}
+                        <option value="{{row.P_NAME}}">{{row.P_NAME}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <lable>From Location</lable>
+                <select name=fromloc class="form-control">
+                    <option value="" disabled selected>Select From Location</option>
+                    {% for row in locations %}
+                        <option value="{{row.L_NAME}}">{{row.L_NAME}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <lable>To Location</lable>
+                <select name=toloc class="form-control">
+                    <option value="" disabled selected>Select To Location</option>
+                    {% for row in locations %}
+                        <option value="{{row.L_NAME}}">{{row.L_NAME}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <lable>Quantity</lable>
+                <input type="number" name="qty" class="form-control" required>
+            </div>
+            <input type="submit" value="submit" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% endblock %}

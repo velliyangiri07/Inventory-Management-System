@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{url_for('index')}}" class="btn btn-primary"><i class="bi bi-house"></i> Home</a>
+        <div class="flex-grow-1 text-center">
+            <h1 class="border border-secondary m-3 p-1 bg-secondary text-white rounded bolder"><i class="bi bi-shop-window"></i> Stock Details</h1>
+        </div>
+    </div>
+        <hr>
+        <table class="table table-bordered  table-sm mx-auto w-auto text-center">
+            <thead >
+                <th>S.No</th>
+                <th>P_ID</th>
+                <th>P_NAME</th>
+                <th>LOCATION NAME</th>
+                <th>QTY</th>
+            </thead>
+            <tbody>
+                {% for row in datas %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{row.P_ID}}</td>
+                        <td>{{row.P_NAME}}</td>
+                        <td>{{row.L_NAME}}</td>
+                        <td>{{row.QTY}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
