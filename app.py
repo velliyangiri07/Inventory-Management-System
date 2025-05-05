@@ -13,34 +13,16 @@ def add_products():
     if request.method=="POST":
         pname=request.form['pname']
         price=int(request.form['price'])
-        qty=int(request.form['qty'])
-        lname=request.form['lname']
         con=sql.connect("inventory.db")
         cur=con.cursor()
 
-        cur.execute("select P_ID from products where P_NAME=?",(pname,))
+        cur.execute("select PRICE from products where P_NAME=?",(pname,))
+        old_price=cur.fetchone()[0]
         if not cur.fetchone():
             cur.execute("insert into products(P_NAME,PRICE) values(?,?)",(pname,price))
             con.commit()
-        cur.execute("select P_ID from products where P_NAME=?",(pname,))
-        pid=cur.fetchone()[0]
-
-        cur.execute("select L_ID FROM locations where L_NAME=?",(lname,))
-        if not cur.fetchone():
-            cur.execute("insert into locations(L_NAME) values(?)",(lname,))
-            con.commit()
-        
-        cur.execute("select QTY from stocks where P_ID=? AND L_NAME=?",(pid,lname))
-        row=cur.fetchone()
-        if row:
-            cur_qty=int(row[0])
-            new_qty=cur_qty+qty
-            cur.execute("update stocks set QTY=? where P_ID=? AND L_NAME=?",(new_qty,pid,lname))
-        else:
-            cur.execute("insert into stocks(P_ID,P_NAME,L_NAME,QTY) values (?,?,?,?)",(pid,pname,lname,qty))
-        con.commit()
-        con.close()
-
+        if old_price != price:
+            cur.execute("update products set PRICE=? where P_NAME=?",(price,pname))
         flash("product added successfully","success")
         return redirect(url_for("view_products"))
     
