@@ -17,13 +17,18 @@ def add_products():
         cur=con.cursor()
 
         cur.execute("select PRICE from products where P_NAME=?",(pname,))
-        old_price=cur.fetchone()[0]
-        if not cur.fetchone():
+        res=cur.fetchone()
+        if res is None:
             cur.execute("insert into products(P_NAME,PRICE) values(?,?)",(pname,price))
-            con.commit()
-        if old_price != price:
-            cur.execute("update products set PRICE=? where P_NAME=?",(price,pname))
-        flash("product added successfully","success")
+            flash("Product added successfully","success")
+        else:
+            old_price=res[0]
+            if old_price != price:
+                cur.execute("update products set PRICE=? where P_NAME=?",(price,pname))
+                flash("Product price updated successfully","info")
+            else:
+                flash("Product already exists with the same price","warning")
+        con.commit()
         return redirect(url_for("view_products"))
     
     return render_template('add_products.html')
